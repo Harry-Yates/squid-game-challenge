@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { hasBoardWon, calculateBoardScore } from "@src/utils/gameUtils";
 import BingoCard from "@src/components/BingoCard";
+import styles from "./Game.module.css";
 
 type GameProps = {
   boards: number[][][];
@@ -55,24 +56,40 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
 
   return (
     <div>
-      {boards.map((board, index) => (
-        <div key={index}>
-          <h2>
-            Board {index + 1} - {boardStatuses[index]}
-          </h2>
-          <BingoCard
-            numbers={board}
-            drawnNumbers={drawSequence.slice(0, currentDrawIndex)}
-          />
-        </div>
-      ))}
       <div>
-        Winning Order:{" "}
+        <div className={styles.highlight}>Winning Order: </div>
         {winningOrder.map((boardIndex) => `Board ${boardIndex + 1}`).join(", ")}
       </div>
       {lastBoardFinalScore && (
-        <p>Last boards final score: {lastBoardFinalScore}</p>
+        <p>
+          Last boards final score:{" "}
+          <span className={styles.highlight}>{lastBoardFinalScore}</span>
+        </p>
       )}
+
+      <div className={styles.bingoCardsContainer}>
+        {boards.map((board, index) => {
+          const isWon = boardStatuses[index] === "won";
+          const isLastWon = winningOrder[winningOrder.length - 1] === index;
+          const shouldHide = isWon && !isLastWon;
+
+          return (
+            <div
+              key={index}
+              className={`${styles.bingoCardWrapper} ${
+                shouldHide ? styles.hidden : ""
+              }`}>
+              <h4>
+                Board {index + 1} - {boardStatuses[index]}
+              </h4>
+              <BingoCard
+                numbers={board}
+                drawnNumbers={drawSequence.slice(0, currentDrawIndex)}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

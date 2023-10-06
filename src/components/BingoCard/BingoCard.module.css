@@ -1,6 +1,10 @@
 .bingoCard {
   display: grid;
-  gap: 8px;
+  gap: 4;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
 }
 
 .bingoCard__row {
@@ -9,9 +13,16 @@
 
 .bingoCard__cell {
   flex: 1;
-  border: 1px solid black;
+  border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.bingoCard__cell:hover {
+  background-color: #e0e0e0;
 }
 
 .bingoCard__cell--marked {

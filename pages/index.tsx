@@ -22,7 +22,6 @@ const Home: NextPage = () => {
           href="/favicon.ico"
         />
       </Head>
-
       <main>
         <h1>Squid Game Challenge</h1>
         <Game

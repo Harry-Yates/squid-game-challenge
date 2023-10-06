@@ -13,9 +13,9 @@
 - [x] **Component Development**:
   - [x] **BingoCard Component**: Display the numbers and mark cells when drawn.
   - [x] **Game Component**: Handle the game logic and use multiple `BingoCard` components.
-- [ ] **Test - Test Data**: Ensure logic with test data is correct and handles all cases.
-- [ ] **Data Preparation - Actual Data**: Once confident with test data results, integrate actual data.
-- [ ] **Test - Actual Data**: Verify logic correctness with actual data.
-- [ ] **API Integration**: Implement POST request using React Query to verify the score.
+- [x] **Test - Test Data**: Ensure logic with test data is correct and handles all cases.
+- [x] **Data Preparation - Actual Data**: Once confident with test data results, integrate actual data.
+- [x] **Test - Actual Data**: Verify logic correctness with actual data.
+- [x] **POST Request Validation**: Score sent via Insomnia and verified `"is_correct_answer": true`.
 - [ ] **Review / Optimise / Refactor**: Refine code, ensuring it's clean and efficient.
-- [ ] **Final Submission**: Submit the score and GitHub solution for review with Krea.
+- [ ] **Final Submission**: Submit GitHub solution for review with Krea.
