@@ -1,11 +1,13 @@
 # Squid Game Challenge
 
-## Apprach & Progress:
+## Approach & Progress:
 
-- [ ] **Project Setup**: Install Next x Typescript with React Query in line with Krea tech stack.
-- [ ] **Data Preparation**: Analyse input and decide on efficient data structures as per Krea brief. Store data in JSON files.
+- [x] **Project Setup**: Installed Next x Typescript with React Query in line with Krea tech stack.
+- [x] **Data Preparation - Test Data**: Analyse input and decided on an efficient data structures as per Krea brief. Stored test data in JSON files.
 - [ ] **Component Development**: Think through core game logic and draft out components.
 - [ ] **API Integration**: Implement POST request using React Query to verify the score.
-- [ ] **Test**: Ensure logic is correct and handles all cases.
+- [ ] **Test - Test Data**: Ensure logic with test data is correct and handles all cases.
+- [ ] **Data Preparation - Actual Data**: Once confident with test data results, integrate actual data.
+- [ ] **Test - Actual Data**: Verify logic correctness with actual data.
 - [ ] **Review / Optimise / Refactor**: Refine code, ensuring it's clean and efficient.
 - [ ] **Final Submission**: Submit the score and GitHub solution for review with Krea.
