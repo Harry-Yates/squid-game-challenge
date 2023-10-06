@@ -2,9 +2,11 @@
 
 ## Approach & Progress:
 
-- [x] **Project Setup**: Installed Next x Typescript with React Query in line with Krea tech stack.
-- [x] **Data Preparation - Test Data**: Analyse input and decided on an efficient data structures as per Krea brief. Stored test data in JSON files.
-- [ ] **Component Development**: Think through core game logic and draft out components.
+- [x] **Project Setup**: Install Next x Typescript with React Query in line with Krea tech stack.
+- [x] **Data Preparation - Test Data**: Analyse input and decide on efficient data structures as per Krea brief. Store test data in JSON files.
+- [x] **Component Development**:
+  - [x] **BingoCard Component**: Display the numbers and mark when drawn.
+  - [ ] **Game Component**: Handle the game logic and use multiple `Board` components.
 - [ ] **API Integration**: Implement POST request using React Query to verify the score.
 - [ ] **Test - Test Data**: Ensure logic with test data is correct and handles all cases.
 - [ ] **Data Preparation - Actual Data**: Once confident with test data results, integrate actual data.

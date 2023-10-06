@@ -1,0 +1,15 @@
+.bingoCard {
+  display: grid;
+  gap: 8px;
+}
+
+.bingoCard__row {
+  display: flex;
+}
+
+.bingoCard__cell {
+  flex: 1;
+  border: 1px solid black;
+  padding: 8px;
+  text-align: center;
+}
