@@ -12,6 +12,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
   const [boardStatuses, setBoardStatuses] = useState<string[]>(
     boards.map(() => "active")
   );
+  const [winningOrder, setWinningOrder] = useState<number[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,19 +24,25 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
             boardStatuses[index] === "active" &&
             hasBoardWon(board, drawnNumbersSoFar)
           ) {
-            // Update board status to 'won' if it's winning now
             const updatedStatuses = [...boardStatuses];
             updatedStatuses[index] = "won";
             setBoardStatuses(updatedStatuses);
+
+            setWinningOrder((prevOrder) => [...prevOrder, index]);
           }
         });
 
+        if (boardStatuses.every((status) => status === "won")) {
+          clearInterval(interval);
+          return;
+        }
+
         setCurrentDrawIndex((prevIndex) => prevIndex + 1);
       }
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(interval);
-  }, [currentDrawIndex, boardStatuses, boards, drawSequence]);
+  }, [currentDrawIndex, boardStatuses]);
 
   return (
     <div>
@@ -50,6 +57,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
           />
         </div>
       ))}
+      <div>Winning Order: {winningOrder.join(", ")}</div>
     </div>
   );
 };
