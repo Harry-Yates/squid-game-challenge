@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import BingoCard from "../src/components/BingoCard";
+import Game from "@src/components/Game";
 import useGameData from "@src/hooks/useGameData";
 
 const Home: NextPage = () => {
@@ -25,9 +25,9 @@ const Home: NextPage = () => {
 
       <main>
         <h1>Squid Game Challenge</h1>
-        <BingoCard
-          numbers={data.boards[0]}
-          drawnNumbers={data.drawNumbers}
+        <Game
+          boards={data.boards}
+          drawSequence={data.drawNumbers}
         />
       </main>
     </div>

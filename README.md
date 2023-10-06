@@ -7,9 +7,12 @@
 - [x] **Data Fetching with React Query**:
   - Set up React Query to fetch game data from local API routes.
   - Create a custom hook (`useGameData`) to abstract data fetching logic and handle loading, error, and data states.
+- [x] **State Management with Zustand**:
+  - Set up Zustand for global state management.
+  - Create a store to hold and update game state across components.
 - [x] **Component Development**:
   - [x] **BingoCard Component**: Display the numbers and mark cells when drawn.
-  - [ ] **Game Component**: Handle the game logic and use multiple `BingoCard` components.
+  - [x] **Game Component**: Handle the game logic and use multiple `BingoCard` components.
 - [ ] **Test - Test Data**: Ensure logic with test data is correct and handles all cases.
 - [ ] **Data Preparation - Actual Data**: Once confident with test data results, integrate actual data.
 - [ ] **Test - Actual Data**: Verify logic correctness with actual data.
