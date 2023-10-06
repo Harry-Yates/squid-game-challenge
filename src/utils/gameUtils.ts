@@ -30,3 +30,22 @@ export function hasBoardWon(
 
   return false;
 }
+
+/**
+ * Calculates the score for a given board
+ */
+export function calculateBoardScore(
+  board: number[][],
+  lastDrawnNumber: number,
+  drawnNumbers: number[]
+): number {
+  let unmarkedSum = 0;
+  for (let row of board) {
+    for (let number of row) {
+      if (!drawnNumbers.includes(number)) {
+        unmarkedSum += number;
+      }
+    }
+  }
+  return unmarkedSum * lastDrawnNumber;
+}
