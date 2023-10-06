@@ -3,6 +3,8 @@ import Head from "next/head";
 import BingoCard from "../src/components/BingoCard";
 import testData from "../src/data/testData.json";
 
+const mockDrawnNumbers = [1, 5, 10, 15, 20, 25, 9];
+
 const Home: NextPage = () => {
   return (
     <div>
@@ -20,7 +22,10 @@ const Home: NextPage = () => {
 
       <main>
         <h1>Squid Game Challenge</h1>
-        <BingoCard numbers={testData.boards[0]} />
+        <BingoCard
+          numbers={testData.boards[0]}
+          drawnNumbers={mockDrawnNumbers}
+        />
       </main>
     </div>
   );
