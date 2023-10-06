@@ -1,11 +1,14 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import BingoCard from "../src/components/BingoCard";
-import testData from "../src/data/testData.json";
-
-const mockDrawnNumbers = [1, 5, 10, 15, 20, 25, 9];
+import useGameData from "@src/hooks/useGameData";
 
 const Home: NextPage = () => {
+  const { data, isLoading, isError } = useGameData();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError || !data) return <p>Error loading game data</p>;
+
   return (
     <div>
       <Head>
@@ -23,8 +26,8 @@ const Home: NextPage = () => {
       <main>
         <h1>Squid Game Challenge</h1>
         <BingoCard
-          numbers={testData.boards[0]}
-          drawnNumbers={mockDrawnNumbers}
+          numbers={data.boards[0]}
+          drawnNumbers={data.drawNumbers}
         />
       </main>
     </div>
