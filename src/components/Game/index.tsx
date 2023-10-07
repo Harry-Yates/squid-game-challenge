@@ -9,11 +9,13 @@ type GameProps = {
 };
 
 const DRAW_INTERVAL_MS = 100;
+const ACTIVE = "Active";
+const WON = "Won";
 
 const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
   const [currentDrawIndex, setCurrentDrawIndex] = useState(0);
   const [boardStatuses, setBoardStatuses] = useState<string[]>(
-    boards.map(() => "active")
+    boards.map(() => ACTIVE)
   );
   const [winningOrder, setWinningOrder] = useState<number[]>([]);
   const [lastBoardFinalScore, setLastBoardFinalScore] = useState<number | null>(
@@ -24,7 +26,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
 
   const resetGame = () => {
     setCurrentDrawIndex(0);
-    setBoardStatuses(boards.map(() => "active"));
+    setBoardStatuses(boards.map(() => ACTIVE));
     setWinningOrder([]);
     setLastBoardFinalScore(null);
     setIsGameRunning(true);
@@ -38,23 +40,30 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
         const drawnNumbersSoFar = drawSequence.slice(0, currentDrawIndex + 1);
 
         let localBoardStatuses = [...boardStatuses];
+        let updatedWinningBoards = new Set(winningOrder);
+        let newWinners: number[] = [];
+
         boards.forEach((board, index) => {
           if (
-            localBoardStatuses[index] === "active" &&
+            localBoardStatuses[index] === ACTIVE &&
             hasBoardWon(board, drawnNumbersSoFar)
           ) {
-            localBoardStatuses[index] = "won";
-            setWinningOrder((prevOrder) => [...prevOrder, index]);
+            localBoardStatuses[index] = WON;
+            if (!updatedWinningBoards.has(index)) {
+              updatedWinningBoards.add(index);
+              newWinners.push(index);
+            }
           }
         });
 
         setBoardStatuses(localBoardStatuses);
+        setWinningOrder((prev) => [...prev, ...newWinners]);
 
-        if (localBoardStatuses.every((status) => status === "won")) {
+        if (localBoardStatuses.every((status) => status === WON)) {
           setIsGameRunning(false);
-          const lastBoardIndex = winningOrder[winningOrder.length - 1];
+          const lastBoardIndex = newWinners[newWinners.length - 1];
           const score = calculateBoardScore(
-            boards[lastBoardIndex],
+            boards[lastBoardIndex!],
             drawSequence[currentDrawIndex],
             drawnNumbersSoFar
           );
@@ -87,15 +96,12 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
       <button
         className={styles.btn}
         onClick={togglePause}
-        aria-disabled={!isGameRunning || isPaused}
         disabled={!isGameRunning}>
-        {isPaused ? "Start" : "Pause"}
+        {isPaused ? "Resume" : "Pause"}
       </button>
-
       <button
         className={styles.btn}
-        onClick={resetGame}
-        aria-disabled={false}>
+        onClick={resetGame}>
         Reset
       </button>
 
@@ -124,7 +130,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
 
       <div className={styles["bingo-cards__container"]}>
         {boards.map((board, index) => {
-          const isWon = boardStatuses[index] === "won";
+          const isWon = boardStatuses[index] === WON;
           const isLastWon = winningOrder[winningOrder.length - 1] === index;
           const shouldHide = isWon && !isLastWon;
 
