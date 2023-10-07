@@ -1,10 +1,10 @@
 .bingoCard {
   display: grid;
-  gap: 4;
+  gap: 4px;
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  background-color: #f5f5f5;
+  background-color: var(--light-bg);
 }
 
 .bingoCard__row {
@@ -13,7 +13,7 @@
 
 .bingoCard__cell {
   flex: 1;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   padding: 8px;
   text-align: center;
   border-radius: 2px;
@@ -21,16 +21,16 @@
   cursor: pointer;
 }
 
-.bingoCard__cell:hover {
-  background-color: #e0e0e0;
+.bingoCard__cell:hover,
+.bingoCard__cell--latestDraw {
+  background-color: var(--hover-bg);
 }
 
 .bingoCard__cell--marked {
-  background-color: #6638f0;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
 .bingoCard__cell--latestDraw {
-  /* background-color: #e0e0e0; */
   background-color: red;
 }

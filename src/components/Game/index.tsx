@@ -8,6 +8,8 @@ type GameProps = {
   drawSequence: number[];
 };
 
+const DRAW_INTERVAL_MS = 100;
+
 const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
   const [currentDrawIndex, setCurrentDrawIndex] = useState(0);
   const [boardStatuses, setBoardStatuses] = useState<string[]>(
@@ -52,7 +54,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
       } else if (!isGameRunning) {
         clearInterval(interval);
       }
-    }, 100);
+    }, DRAW_INTERVAL_MS);
 
     return () => clearInterval(interval);
   }, [
@@ -68,7 +70,8 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
     <div>
       <button
         className={styles.resetButton}
-        onClick={() => window.location.reload()}>
+        onClick={() => window.location.reload()}
+        aria-disabled={false}>
         Reset
       </button>
 

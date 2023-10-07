@@ -1,9 +1,9 @@
 import styles from "./BingoCard.module.css";
 
 type BingoCardProps = {
-  numbers: number[][];
-  drawnNumbers: number[];
-  latestDraw?: number; // This prop is the latest drawn number.
+  numbers: number[][]; // 2D array representing the BingoCard board.
+  drawnNumbers: number[]; // Numbers that have been drawn so far.
+  latestDraw?: number; // The most recently drawn number.
 };
 
 const BingoCard: React.FC<BingoCardProps> = ({
