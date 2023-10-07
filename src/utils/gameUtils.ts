@@ -17,7 +17,7 @@ export function hasBoardWon(
     if (isRowComplete(row, drawnNumbers)) return true;
   }
 
-  // Check columns
+  // Checks columns
   for (let col = 0; col < 5; col++) {
     if (
       isRowComplete(
