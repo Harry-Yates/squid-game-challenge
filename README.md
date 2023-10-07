@@ -17,5 +17,5 @@
 - [x] **Data Preparation - Actual Data**: Once confident with test data results, integrate actual data.
 - [x] **Test - Actual Data**: Verify logic correctness with actual data.
 - [x] **POST Request Validation**: Score sent via Insomnia and verified `"is_correct_answer": true`.
-- [ ] **Review / Optimise / Refactor**: Refine code, ensuring it's clean and efficient.
-- [ ] **Final Submission**: Submit GitHub solution for review with Krea.
+- [x] **Review / Optimise / Refactor**: Refine code, ensure it's clean and efficient.
+- [x] **Final Submission**: Submit GitHub solution for review with Krea.

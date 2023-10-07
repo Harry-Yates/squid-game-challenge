@@ -17,11 +17,13 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
   const [lastBoardFinalScore, setLastBoardFinalScore] = useState<number | null>(
     null
   );
+  const [isGameRunning, setIsGameRunning] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (currentDrawIndex < drawSequence.length) {
+      if (currentDrawIndex < drawSequence.length && isGameRunning) {
         const drawnNumbersSoFar = drawSequence.slice(0, currentDrawIndex + 1);
+
         let localBoardStatuses = [...boardStatuses];
         boards.forEach((board, index) => {
           if (
@@ -36,6 +38,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
         setBoardStatuses(localBoardStatuses);
 
         if (localBoardStatuses.every((status) => status === "won")) {
+          setIsGameRunning(false);
           const lastBoardIndex = winningOrder[winningOrder.length - 1];
           const score = calculateBoardScore(
             boards[lastBoardIndex],
@@ -43,29 +46,52 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
             drawnNumbersSoFar
           );
           setLastBoardFinalScore(score);
-          clearInterval(interval);
-          return;
         }
 
         setCurrentDrawIndex((prevIndex) => prevIndex + 1);
+      } else if (!isGameRunning) {
+        clearInterval(interval);
       }
     }, 100);
 
     return () => clearInterval(interval);
-  }, [currentDrawIndex, boardStatuses, boards, drawSequence, winningOrder]);
+  }, [
+    currentDrawIndex,
+    boardStatuses,
+    boards,
+    drawSequence,
+    winningOrder,
+    isGameRunning,
+  ]);
 
   return (
     <div>
+      <button
+        className={styles.resetButton}
+        onClick={() => window.location.reload()}>
+        Reset
+      </button>
+
       <div>
-        <div className={styles.highlight}>Winning Order: </div>
-        {winningOrder.map((boardIndex) => `Board ${boardIndex + 1}`).join(", ")}
+        {currentDrawIndex > 0 && (
+          <div className={styles.drawnNumbersContainer}>
+            <div className={styles.highlightPurple}>Drawn Numbers: </div>
+            <span>{drawSequence.slice(0, currentDrawIndex).join(", ")}</span>
+          </div>
+        )}
+        <div className={styles.winningOrderContainer}>
+          <div className={styles.highlightPurple}>Winning Order: </div>
+          {winningOrder
+            .map((boardIndex) => `Board ${boardIndex + 1}`)
+            .join(", ")}
+        </div>
+        {lastBoardFinalScore && (
+          <p className={styles.highlightPurple}>
+            Last boards final score:{" "}
+            <span className={styles.highlightBlack}>{lastBoardFinalScore}</span>
+          </p>
+        )}
       </div>
-      {lastBoardFinalScore && (
-        <p>
-          Last boards final score:{" "}
-          <span className={styles.highlight}>{lastBoardFinalScore}</span>
-        </p>
-      )}
 
       <div className={styles.bingoCardsContainer}>
         {boards.map((board, index) => {
@@ -85,6 +111,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
               <BingoCard
                 numbers={board}
                 drawnNumbers={drawSequence.slice(0, currentDrawIndex)}
+                latestDraw={drawSequence[currentDrawIndex - 1]} // Pass the latest drawn number
               />
             </div>
           );
