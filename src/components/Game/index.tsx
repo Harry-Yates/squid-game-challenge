@@ -20,8 +20,19 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
     null
   );
   const [isGameRunning, setIsGameRunning] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const resetGame = () => {
+    setCurrentDrawIndex(0);
+    setBoardStatuses(boards.map(() => "active"));
+    setWinningOrder([]);
+    setLastBoardFinalScore(null);
+    setIsGameRunning(true);
+  };
 
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       if (currentDrawIndex < drawSequence.length && isGameRunning) {
         const drawnNumbersSoFar = drawSequence.slice(0, currentDrawIndex + 1);
@@ -64,13 +75,26 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
     drawSequence,
     winningOrder,
     isGameRunning,
+    isPaused,
   ]);
+
+  const togglePause = () => {
+    setIsPaused((prevPaused) => !prevPaused);
+  };
 
   return (
     <div>
       <button
-        className={styles.resetButton}
-        onClick={() => window.location.reload()}
+        className={styles.Btn}
+        onClick={togglePause}
+        aria-disabled={!isGameRunning || isPaused}
+        disabled={!isGameRunning}>
+        {isPaused ? "Start" : "Pause"}
+      </button>
+
+      <button
+        className={styles.Btn}
+        onClick={resetGame}
         aria-disabled={false}>
         Reset
       </button>
@@ -90,8 +114,10 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
         </div>
         {lastBoardFinalScore && (
           <p className={styles.highlightPurple}>
-            Last boards final score:{" "}
-            <span className={styles.highlightBlack}>{lastBoardFinalScore}</span>
+            Last board&apos;s final score:{" "}
+            <strong className={styles.highlightBlack}>
+              <span>{lastBoardFinalScore}</span>
+            </strong>
           </p>
         )}
       </div>
@@ -114,7 +140,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
               <BingoCard
                 numbers={board}
                 drawnNumbers={drawSequence.slice(0, currentDrawIndex)}
-                latestDraw={drawSequence[currentDrawIndex - 1]} // Pass the latest drawn number
+                latestDraw={drawSequence[currentDrawIndex - 1]}
               />
             </div>
           );

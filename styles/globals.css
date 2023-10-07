@@ -3,10 +3,10 @@
   --light-bg: #f5f5f5;
   --border-color: #ddd;
   --hover-bg: #e0e0e0;
-  --primary-color: #6638f0;
   --button-font-size: 16px;
   --button-padding: 10px 20px;
   --container-margin-bottom: 10px;
+  --disabled-color: #a0a0a0;
 }
 
 html,
