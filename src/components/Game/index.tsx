@@ -85,7 +85,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
   return (
     <div>
       <button
-        className={styles.Btn}
+        className={styles.btn}
         onClick={togglePause}
         aria-disabled={!isGameRunning || isPaused}
         disabled={!isGameRunning}>
@@ -93,7 +93,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
       </button>
 
       <button
-        className={styles.Btn}
+        className={styles.btn}
         onClick={resetGame}
         aria-disabled={false}>
         Reset
@@ -101,28 +101,28 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
 
       <div>
         {currentDrawIndex > 0 && (
-          <div className={styles.drawnNumbersContainer}>
-            <div className={styles.highlightPurple}>Drawn Numbers: </div>
+          <div className={styles["drawn-numbers__container"]}>
+            <div className={styles["highlight--purple"]}>Drawn Numbers: </div>
             <span>{drawSequence.slice(0, currentDrawIndex).join(", ")}</span>
           </div>
         )}
-        <div className={styles.winningOrderContainer}>
-          <div className={styles.highlightPurple}>Winning Order: </div>
+        <div className={styles["winning-order__container"]}>
+          <div className={styles["highlight--purple"]}>Winning Order: </div>
           {winningOrder
             .map((boardIndex) => `Board ${boardIndex + 1}`)
             .join(", ")}
         </div>
         {lastBoardFinalScore && (
-          <p className={styles.highlightPurple}>
+          <p className={styles["highlight--purple"]}>
             Last board&apos;s final score:{" "}
-            <strong className={styles.highlightBlack}>
+            <strong className={styles["highlight--black"]}>
               <span>{lastBoardFinalScore}</span>
             </strong>
           </p>
         )}
       </div>
 
-      <div className={styles.bingoCardsContainer}>
+      <div className={styles["bingo-cards__container"]}>
         {boards.map((board, index) => {
           const isWon = boardStatuses[index] === "won";
           const isLastWon = winningOrder[winningOrder.length - 1] === index;
@@ -131,7 +131,7 @@ const Game: React.FC<GameProps> = ({ boards, drawSequence }) => {
           return (
             <div
               key={index}
-              className={`${styles.bingoCardWrapper} ${
+              className={`${styles["bingo-card__wrapper"]} ${
                 shouldHide ? styles.hidden : ""
               }`}>
               <h4>

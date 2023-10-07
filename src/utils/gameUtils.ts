@@ -1,12 +1,12 @@
 /**
- * Checks if a given row is complete (all numbers are marked)
+ * Checks if row has bingo.
  */
 function isRowComplete(row: number[], drawnNumbers: number[]): boolean {
   return row.every((num) => drawnNumbers.includes(num));
 }
 
 /**
- * Checks if a given board has a winning row or column
+ * Checks if a board has bingo across a row or column.
  */
 export function hasBoardWon(
   board: number[][],
@@ -32,7 +32,7 @@ export function hasBoardWon(
 }
 
 /**
- * Calculates the score for a given board
+ * Calculates the score for per board.
  */
 export function calculateBoardScore(
   board: number[][],
